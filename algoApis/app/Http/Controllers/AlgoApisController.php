@@ -76,11 +76,47 @@ class AlgoApisController extends Controller
         $num = $request->num;
 
         if (is_numeric($num)){
-            echo "correct";
+            //echo "correct";
             $num = intval($num);
-            
+
+            $arr = str_split($num);
+            print_r($arr);
+            echo "<br>";
+            function FindPLaceValue($n , $num){
+                $total = 1;
+                $value = 0;
+                $remainder = 0;
+                echo "n = " .$n;
+                echo "<br>";
+                echo "num = ".$num;
+                echo "<br>";
+                while (true){
+                    $remainder = $num % 10;
+                    $num = intdiv($num , 10);
+
+                    if ($remainder == $n){
+                        echo "they are equal";
+                        echo "<br>";
+                        $value = $total * $remainder;
+                        echo "value now is : " .$value;
+                        echo "<br>";
+                        break;
+                    }
+
+                    $total = $total * 10;
+                
+                return $value;
+                }
+            }
+
+            for ($i = 0; $i < count($arr); $i++){
+                $arr[$i] = FindPLaceValue($arr[$i] , $num);
+                print_r($arr[$i]);
+                echo "<br>";
+            }
+
             return response() -> json([
-                "num" => $num
+                "array of place values" => $num
             ]);
         }
         else {
