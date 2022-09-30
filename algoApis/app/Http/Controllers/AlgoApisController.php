@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 
 class AlgoApisController extends Controller
 {
-    function sortMixedString($unsortedString){
+    function sortMixedString(Request $request){
+        $name = $request->name;
         return response() -> json([
-            "entered string" => $unsortedString
+            "entered string" => $name
         ]);
     }
 }
