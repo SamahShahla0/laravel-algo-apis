@@ -76,13 +76,19 @@ class AlgoApisController extends Controller
         $num = $request->num;
 
         if (is_numeric($num)){
-            //echo "correct";
+            
+            $is_negative = false;
             $num = intval($num);
-
+            $num = strrev($num);
+    
             $arr = str_split($num);
-            print_r($arr);
-            echo "<br>";
-            function FindPLaceValue($n , $num){
+           
+            if ($arr[count($arr)-1] == '-' ){
+                array_splice($arr, count($arr)-1, 1);
+                $is_negative = true;
+            }
+           
+            /*function FindPLaceValue($n , $num){
                 $total = 1;
                 $value = 0;
                 $remainder = 0;
@@ -113,10 +119,30 @@ class AlgoApisController extends Controller
                 $arr[$i] = FindPLaceValue($arr[$i] , $num);
                 print_r($arr[$i]);
                 echo "<br>";
+            }*/
+            $reversedArr = array_reverse($arr, true);
+            
+            $final =[];
+            for ($i = 1; $i < count($reversedArr); $i++){
+                $m = 1;
+                for ($j = 1; $j <= $i; $j++){
+                    $m = $m * 10;
+                }
+                $reversedArr[$i] = $reversedArr[$i] * $m;
+                array_push($final, $reversedArr[$i]);
             }
-
+            array_push($final, $reversedArr[0]);
+            print_r($reversedArr);
+            echo "<br>";
+            //print_r($final);
+            //echo "<br>";
+            if ($is_negative){
+                for ($i = 0; $i < count($final); $i++){
+                    $final[$i] = "-" . $final[$i];
+                }
+            }
             return response() -> json([
-                "array of place values" => $num
+                "array of place values" => $final
             ]);
         }
         else {
@@ -125,6 +151,7 @@ class AlgoApisController extends Controller
         
     }
 }
+
 
 
 
