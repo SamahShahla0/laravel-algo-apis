@@ -12,13 +12,14 @@ class AlgoApisController extends Controller
         $arr = str_split($unsortedString);
 
         sort($arr);
-        print_r($arr);
-        echo "<br>";
+        //print_r($arr);
+        //echo "<br>";
         
         $arrOfInt = [];
         $arrOfLowerChars = [];
         $arrOfUpperChars = [];
         $arrOfOthers = [];
+
         for($i = 0; $i < count($arr); $i++){
             if (in_array(ord($arr[$i]), range(48,57))) {
                 array_push($arrOfInt, $arr[$i]);
@@ -33,15 +34,43 @@ class AlgoApisController extends Controller
                 array_push($arrOfOthers, $arr[$i]);
             }
         }
-        print_r($arrOfOthers);
-        echo "<br>";
+        
+        $sortedString = "";
+        for ($i = 0; $i < count($arrOfLowerChars); $i++){
+            $sortedString = $sortedString . $arrOfLowerChars[$i];
+            //echo $sortedString . "<br>";
+            for ($j = 0; $j < count($arrOfUpperChars);$j++){
+                if (strtolower($arrOfUpperChars[$j]) == $arrOfLowerChars[$i]){
+                    $sortedString .= $arrOfUpperChars[$j];
+                    array_splice($arrOfUpperChars, $j, 1);
+                    $j = $j -1;
+                    //echo $sortedString . "<br>";
+                }
+            }
+        }
+
+        if (count($arrOfUpperChars) > 0){
+            for ($i = 0; $i < count($arrOfUpperChars); $i++){
+                $sortedString .= $arrOfUpperChars[$i];
+            }
+        }
+
+        for ($i = 0; $i < count($arrOfInt); $i++){
+            $sortedString .= $arrOfInt[$i];
+        }
+
+        for ($i = 0; $i < count($arrOfOthers); $i++){
+            $sortedString .= $arrOfOthers[$i];
+        }
+        //echo $sortedString . "<br>";
+        //echo "<br>";
 
         return response() -> json([
-            "entered string " => $unsortedString
+            $unsortedString => $sortedString
         ]);
     }
 }
-// array length php ?
+
 
 
 
