@@ -73,8 +73,20 @@ class AlgoApisController extends Controller
     /////////////////////////////////////////////////////////////////////
 
     function arrayOfPlaceValues(Request $request){
-        $num = $request-> $num;
+        $num = $request->num;
 
+        if (is_numeric($num)){
+            echo "correct";
+            $num = intval($num);
+            
+            return response() -> json([
+                "num" => $num
+            ]);
+        }
+        else {
+            echo "error, the value entered is not numeric";
+        }
+        
     }
 }
 
