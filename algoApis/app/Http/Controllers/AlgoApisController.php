@@ -10,17 +10,28 @@ class AlgoApisController extends Controller
         $unsortedString = $request->unsortedString;
         //split the string into an array
         $arr = str_split($unsortedString);
+        
+        sort($arr);
         print_r($arr);
 
-        sort($arr);
-        
-        print_r($arr);
+        echo "<br>";
+
+        $sortedReversed = array_reverse($arr, true);
+        print_r($sortedReversed);
+
+        echo "<br>";
 
         print_r(ord($arr[0]));
+
+        echo "<br>";
+
         return response() -> json([
             "entered string " => $unsortedString
         ]);
     }
 }
 
-// ascii place in php?
+
+
+
+
