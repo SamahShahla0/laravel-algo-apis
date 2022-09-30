@@ -10,18 +10,25 @@ class AlgoApisController extends Controller
         $unsortedString = $request->unsortedString;
         //split the string into an array
         $arr = str_split($unsortedString);
-        
+
         sort($arr);
         print_r($arr);
 
         echo "<br>";
-
-        $sortedReversed = array_reverse($arr, true);
-        print_r($sortedReversed);
-
-        echo "<br>";
-
-        print_r(ord($arr[0]));
+        //$sortedReversed = array_reverse($arr, true);
+        //print_r($sortedReversed);
+        //echo "<br>";
+        for($i = 0; $i < count($arr); $i++){
+            echo $i . "   ". $arr[$i];
+            echo "<br>";
+            echo gettype($arr[$i]) . "<br>";
+            if(is_int($arr[$i])){
+                $j = $i;
+                echo "<br>";
+                echo $j;
+            }
+        }
+        //print_r(ord($arr[0]));
 
         echo "<br>";
 
@@ -30,6 +37,10 @@ class AlgoApisController extends Controller
         ]);
     }
 }
+// array length php ?
+
+
+
 
 
 
