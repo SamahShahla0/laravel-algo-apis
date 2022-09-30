@@ -13,36 +13,27 @@ class AlgoApisController extends Controller
 
         sort($arr);
         print_r($arr);
-
         echo "<br>";
-        //$sortedReversed = array_reverse($arr, true);
-        //print_r($sortedReversed);
-        //echo "<br>";
+        
         $arrOfInt = [];
+        $arrOfLowerChars = [];
+        $arrOfUpperChars = [];
+        $arrOfOthers = [];
         for($i = 0; $i < count($arr); $i++){
-            //echo $i . "   ". $arr[$i];
-            //echo "<br>";
-           //echo gettype($arr[$i]) . "<br>";
-            //range(48, 57);
-            //in_array(2, range(1,7)
-            //echo ord($arr[$i]). "<br>";
-            //if(ord($arr[$i]) >= 48 && ord($arr[$i]) <= 57){
-            if(in_array(ord($arr[$i]), range(48,57))){
-                
-                $j = $i;
-                echo "j= " .$i;
-                echo "<br>";
+            if (in_array(ord($arr[$i]), range(48,57))) {
                 array_push($arrOfInt, $arr[$i]);
-                //$arrOfInt = array_slice($arr,$i);
-                
+            }
+            elseif (in_array(ord($arr[$i]), range(97,122))) {
+                array_push($arrOfLowerChars, $arr[$i]);
+            }
+            elseif (in_array(ord($arr[$i]), range(65,90))) {
+                array_push($arrOfUpperChars, $arr[$i]);
+            }
+            else {
+                array_push($arrOfOthers, $arr[$i]);
             }
         }
-        print_r($arrOfInt);
-        echo "<br>";
-       // $arrOfInt=array_diff($arr,$arrOfInt);
-        //print_r($arrOfInt);
-        //print_r(ord($arr[0]));
-
+        print_r($arrOfOthers);
         echo "<br>";
 
         return response() -> json([
