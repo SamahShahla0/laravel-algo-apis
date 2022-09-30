@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class AlgoApisController extends Controller
 {
-    //
+    function sortMixedString($unsortedString){
+        
+    }
 }
