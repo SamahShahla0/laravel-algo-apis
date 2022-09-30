@@ -69,6 +69,13 @@ class AlgoApisController extends Controller
             $unsortedString => $sortedString
         ]);
     }
+
+    /////////////////////////////////////////////////////////////////////
+
+    function arrayOfPlaceValues(Request $request){
+        $num = $request-> $num;
+
+    }
 }
 
 
