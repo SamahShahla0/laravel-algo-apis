@@ -19,13 +19,17 @@ class AlgoApisController extends Controller
         //print_r($sortedReversed);
         //echo "<br>";
         for($i = 0; $i < count($arr); $i++){
-            echo $i . "   ". $arr[$i];
+            //echo $i . "   ". $arr[$i];
             echo "<br>";
-            echo gettype($arr[$i]) . "<br>";
-            if(is_int($arr[$i])){
+           //echo gettype($arr[$i]) . "<br>";
+            //range(48, 57);
+            //in_array(2, range(1,7)
+            echo ord($arr[$i]). "<br>";
+            //if(ord($arr[$i]) >= 48 && ord($arr[$i]) <= 57){
+            if(in_array(ord($arr[$i]), range(48,57))){
                 $j = $i;
+                echo "j= " .$i;
                 echo "<br>";
-                echo $j;
             }
         }
         //print_r(ord($arr[0]));
