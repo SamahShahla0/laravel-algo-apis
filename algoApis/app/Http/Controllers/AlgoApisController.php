@@ -73,76 +73,55 @@ class AlgoApisController extends Controller
     /////////////////////////////////////////////////////////////////////
 
     function arrayOfPlaceValues(Request $request){
-        $num = $request->num;
-
-        if (is_numeric($num)){
-            
+        $initNum = $request-> initNum;
+        
+        if (is_numeric($initNum)){
+           
             $is_negative = false;
-            $num = intval($num);
-            $num = strrev($num);
-    
-            $arr = str_split($num);
-           
-            if ($arr[count($arr)-1] == '-' ){
-                array_splice($arr, count($arr)-1, 1);
+            if ($initNum < 0){
                 $is_negative = true;
+                $initNum = $initNum * (-1);
             }
-           
-            /*function FindPLaceValue($n , $num){
+            $num = $initNum;
+            $num = intval($num);
+            
+            function FindPLaceValue($n , $num){
                 $total = 1;
                 $value = 0;
                 $remainder = 0;
-                echo "n = " .$n;
-                echo "<br>";
-                echo "num = ".$num;
-                echo "<br>";
+        
                 while (true){
                     $remainder = $num % 10;
                     $num = intdiv($num , 10);
 
                     if ($remainder == $n){
-                        echo "they are equal";
-                        echo "<br>";
                         $value = $total * $remainder;
-                        echo "value now is : " .$value;
-                        echo "<br>";
                         break;
                     }
 
                     $total = $total * 10;
-                
-                return $value;
                 }
-            }
 
-            for ($i = 0; $i < count($arr); $i++){
-                $arr[$i] = FindPLaceValue($arr[$i] , $num);
-                print_r($arr[$i]);
-                echo "<br>";
-            }*/
-            $reversedArr = array_reverse($arr, true);
-            
-            $final =[];
-            for ($i = 1; $i < count($reversedArr); $i++){
-                $m = 1;
-                for ($j = 1; $j <= $i; $j++){
-                    $m = $m * 10;
-                }
-                $reversedArr[$i] = $reversedArr[$i] * $m;
-                array_push($final, $reversedArr[$i]);
+                return $value;
             }
-            array_push($final, $reversedArr[0]);
-            print_r($reversedArr);
-            echo "<br>";
-            //print_r($final);
-            //echo "<br>";
-            if ($is_negative){
-                for ($i = 0; $i < count($final); $i++){
-                    $final[$i] = "-" . $final[$i];
+            $arr = [];
+            while ($num > 0){
+
+                $dgt = fmod($num, 10);
+                $num = intdiv($num , 10);
+                
+                $placeValue = FindPLaceValue($dgt, $initNum);
+                array_push($arr, $placeValue);
+                
+            }
+            if ($is_negative == true){
+                foreach ($arr as $number){
+                    $index = array_search($number, $arr);
+                    $arr[$index] = $number * (-1);
                 }
             }
             return response() -> json([
-                "array of place values" => $final
+                " place values are:  " => array_reverse($arr, false)
             ]);
         }
         else {
